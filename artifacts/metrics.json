@@ -1,0 +1,49 @@
+{
+  "created_at": "2026-10-06T17:06:03.715427+00:00",
+  "split": "test",
+  "images": 32,
+  "fields": [
+    "nit",
+    "fecha",
+    "monto_total"
+  ],
+  "metrics": {
+    "gemini": {
+      "nit": {
+        "exact_match": 0.0,
+        "cer": 1.0,
+        "n": 32
+      },
+      "fecha": {
+        "exact_match": 0.0,
+        "cer": 1.0,
+        "n": 32
+      },
+      "monto_total": {
+        "exact_match": 0.0,
+        "cer": 1.0,
+        "n": 32
+      },
+      "macro_exact_match": 0.0
+    },
+    "baseline": {
+      "nit": {
+        "exact_match": 0.0,
+        "cer": 2.556,
+        "n": 32
+      },
+      "fecha": {
+        "exact_match": 0.0,
+        "cer": 0.697,
+        "n": 32
+      },
+      "monto_total": {
+        "exact_match": 0.0,
+        "cer": 1.0,
+        "n": 32
+      },
+      "macro_exact_match": 0.0
+    }
+  },
+  "elapsed_seconds": 6359.38
+}
