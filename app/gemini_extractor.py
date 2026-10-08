@@ -6,8 +6,10 @@ This model is used as-is without any additional training.
 import json
 import os
 import google.generativeai as genai
+from dotenv import load_dotenv
 from PIL import Image
 
+load_dotenv()
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 _model = genai.GenerativeModel("models/gemini-3.8-flash")
 
