@@ -13,8 +13,15 @@ class Pipeline:
         started  = time.perf_counter()
         gemini   = extract_fields(image_path)
         baseline = extract_fields_baseline(image_path)
+        # Suggest review if models disagree on any field or Gemini confidence is low
+        fields = ["nit", "fecha", "monto_total"]
+        disagree = any(gemini.get(f, "") != baseline.get(f, "") for f in fields)
+        low_conf = float(gemini.get("confidence", 1.0)) < 0.70
+        review_flag = disagree or low_conf
         return {
-            "gemini":     gemini,
-            "baseline":   baseline,
-            "elapsed_ms": round((time.perf_counter() - started) * 1000),
+            "gemini":        gemini,
+            "baseline":      baseline,
+            "elapsed_ms":    round((time.perf_counter() - started) * 1000),
+            "review_flag":   review_flag,
+            "review_reason": "desacuerdo entre modelos" if disagree else "confianza baja en Gemini",
         }

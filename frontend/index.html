@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extracción de Facturas · Vision-LLM</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Extracción de Facturas</h1>
+    <p class="subtitle">Comparación entre Gemini Vision y Tesseract OCR</p>
+  </header>
+
+  <main>
+    <!-- Métricas -->
+    <section id="metrics-section">
+      <h2>Resultados en conjunto de prueba (32 facturas)</h2>
+      <table id="metrics-table">
+        <thead>
+          <tr>
+            <th>Campo</th>
+            <th colspan="2">Gemini</th>
+            <th colspan="2">Tesseract</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Exact Match</th><th>CER</th>
+            <th>Exact Match</th><th>CER</th>
+          </tr>
+        </thead>
+        <tbody id="metrics-body">
+          <tr><td colspan="5" class="loading">Cargando métricas…</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Ejemplos de la colección -->
+    <section id="examples-section">
+      <h2>Ejemplos de la colección</h2>
+      <p class="hint">Selecciona una factura y pulsa <strong>Analizar</strong>.</p>
+      <div id="examples-grid"></div>
+    </section>
+
+    <!-- Subir imagen propia -->
+    <section id="upload-section">
+      <h2>Probar con tu propia imagen</h2>
+      <label class="upload-area" id="upload-label">
+        <span id="upload-text">Arrastra un PNG o JPEG aquí, o haz clic para seleccionar</span>
+        <input type="file" id="file-input" accept="image/png,image/jpeg" hidden />
+      </label>
+      <button id="upload-btn" class="btn-primary" disabled>Analizar imagen</button>
+    </section>
+
+    <!-- Resultado -->
+    <section id="result-section" hidden>
+      <h2>Resultado</h2>
+      <div id="result-container">
+        <div id="result-image-wrap">
+          <img id="result-image" alt="Factura analizada" />
+        </div>
+        <div id="result-data">
+          <table id="result-table">
+            <thead>
+              <tr>
+                <th>Campo</th>
+                <th>Gemini</th>
+                <th>Tesseract</th>
+                <th>Referencia</th>
+              </tr>
+            </thead>
+            <tbody id="result-body"></tbody>
+          </table>
+          <p id="result-warning" class="warning" hidden></p>
+          <p id="result-time" class="hint"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Estudio Contable Ugarte &amp; Asociados · Cochabamba, Bolivia · Proyecto académico</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
