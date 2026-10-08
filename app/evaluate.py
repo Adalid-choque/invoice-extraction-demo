@@ -12,8 +12,20 @@ from app.settings import DATA, ARTIFACTS, FIELDS
 
 
 def _norm(v: str) -> str:
-    """Normalize value for comparison: lowercase, strip, unify separators."""
-    return str(v).strip().lower().replace("-", "/").replace(".", "/").replace(",", ".").replace(" ", "")
+    """Normalize value for comparison: lowercase, strip, unify separators.
+
+    Strategy: detect whether the value looks like a date (dd/mm/yyyy pattern)
+    or a number (amount). Dates get dot/dash unified to slash; amounts get
+    comma unified to dot. This avoids 24.00 becoming 24/00.
+    """
+    import re
+    v = str(v).strip().lower().replace(" ", "")
+    v = v.replace("-", "/")  # unify date dashes first (15-07-2026 -> 15/07/2026)
+    # If it looks like a date (two digit groups separated by / or .), normalize to slash
+    if re.match(r'^\d{1,2}[./]\d{1,2}[./]\d{2,4}$', v):
+        return v.replace(".", "/")
+    # Otherwise treat as amount or NIT: comma -> dot decimal
+    return v.replace(",", ".")
 
 
 def _em(pred: str, ref: str) -> int:
